@@ -14,7 +14,7 @@ export default function App() {
   return (
     <>
       <NavigationContainer>
-        <Tab.Navigator tabBarOptions={() => {showLabel: false }}
+        <Tab.Navigator
           screenOptions={({ route }) => (
             {
             headerShown: false,
