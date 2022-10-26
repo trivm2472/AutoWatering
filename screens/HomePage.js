@@ -1,5 +1,8 @@
 import { StyleSheet, Text, View, Image, ScrollView } from "react-native";
-import Notification from '../components/Notification';
+import Notification from "../components/Notification";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebase.js";
+import { useEffect } from "react";
 
 function Menu({ type }) {
   if (type == "garden")
@@ -26,6 +29,16 @@ function Menu({ type }) {
 }
 
 export default function HomePage() {
+  useEffect(() => {
+    const getData = async () => {
+      const querySnapshot = await getDocs(collection(db, "NhaVuon"));
+      querySnapshot.forEach((doc) => {
+        console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
+      });
+    };
+    getData();
+  }, []);
+
   return (
     <>
       <View style={styles.header}>
@@ -51,20 +64,19 @@ export default function HomePage() {
           Xem thêm
         </Text>
       </View>
-      <ScrollView style={{marginTop: 30}}>
-        <Notification/>
-        <Notification/>
-        <Notification/>
-        <Notification/>
-        <Notification/>
-        <Notification/>
-        <Notification/>
-        <Notification/>
-        <Notification/>
-        <Notification/>
-        <Notification/>
+      <ScrollView style={{ marginTop: 30 }}>
+        <Notification />
+        <Notification />
+        <Notification />
+        <Notification />
+        <Notification />
+        <Notification />
+        <Notification />
+        <Notification />
+        <Notification />
+        <Notification />
+        <Notification />
       </ScrollView>
-      
     </>
   );
 }
