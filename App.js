@@ -7,6 +7,7 @@ import Onboarding from "./screens/Onboarding";
 import NotificationScreen from "./screens/NotificationScreen";
 import InformationScreen from "./screens/InformationScreen";
 import ActiveScreen from "./screens/ActiveScreen";
+import DangTuoi from "./components/DangTuoi";
 
 const Tab = createBottomTabNavigator();
 
@@ -37,7 +38,7 @@ export default function App() {
           <Tab.Screen name="Home" component={HomePage} />
           <Tab.Screen name="Notification" component={NotificationScreen} />
           <Tab.Screen name="Active" component={ActiveScreen} />
-          <Tab.Screen name="Information" component={InformationScreen} />
+          <Tab.Screen name="Information" component={DangTuoi} />
         </Tab.Navigator>
       </NavigationContainer>
     </>
