@@ -1,10 +1,10 @@
-import { StyleSheet, Text, View, Image, ScrollView } from "react-native";
+import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from "react-native";
 import Notification from "../components/Notification";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase.js";
 import { useEffect } from "react";
 
-function Menu({ type }) {
+function Menu({ type, goToScreen}) {
   if (type == "garden")
     var imageSource = require("../assets/HomePage/garden.png");
   else if (type == "recently")
@@ -19,25 +19,21 @@ function Menu({ type }) {
   else var text = "Đang tưới";
 
   return (
-    <View style={styles.menu}>
+    <TouchableOpacity style={styles.menu} onPress={()=>{
+      goToScreen('DangTuoi');
+    }}>
       <Image style={{ width: 60 }} source={imageSource} />
       <Text style={{ marginTop: 15, fontSize: 13, textAlign: "center" }}>
         {text}
       </Text>
-    </View>
+    </TouchableOpacity>
   );
 }
 
-export default function HomePage() {
-  useEffect(() => {
-    const getData = async () => {
-      const querySnapshot = await getDocs(collection(db, "NhaVuon"));
-      querySnapshot.forEach((doc) => {
-        console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
-      });
-    };
-    getData();
-  }, []);
+export default function HomePage({navigation}) {
+  const goToScreen = (name) => {
+    navigation.navigate(name);
+  }
 
   return (
     <>
@@ -51,10 +47,10 @@ export default function HomePage() {
         </View>
       </View>
       <View style={styles.menuContainer}>
-        <Menu type="garden" />
-        <Menu type="watering" />
-        <Menu type="recently" />
-        <Menu type="unusual" />
+        <Menu type="garden" goToScreen={goToScreen}/>
+        <Menu type="watering" goToScreen={goToScreen}/>
+        <Menu type="recently" goToScreen={goToScreen}/>
+        <Menu type="unusual" goToScreen={goToScreen}/>
       </View>
       <View style={{ display: "flex", flexDirection: "row", marginTop: 30 }}>
         <Text style={{ fontSize: 18, flex: 3, paddingLeft: 15 }}>

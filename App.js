@@ -8,8 +8,19 @@ import NotificationScreen from "./screens/NotificationScreen";
 import InformationScreen from "./screens/InformationScreen";
 import ActiveScreen from "./screens/ActiveScreen";
 import DangTuoi from "./components/DangTuoi";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+const homeStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+
+function HomeStackScreen() {
+  return (
+  <homeStack.Navigator initialRouteName="HomePage" screenOptions={{headerShown: false}}>
+    <homeStack.Screen name="HomePage" component={HomePage} />
+    <homeStack.Screen name="DangTuoi" component={DangTuoi} />  
+  </homeStack.Navigator>
+  );
+}
 
 export default function App() {
   return (
@@ -35,10 +46,10 @@ export default function App() {
             // tabBarLabelStyle: {display: 'none'}
           })}
         >
-          <Tab.Screen name="Home" component={HomePage} />
+          <Tab.Screen name="Home" component={HomeStackScreen} />
           <Tab.Screen name="Notification" component={NotificationScreen} />
           <Tab.Screen name="Active" component={ActiveScreen} />
-          <Tab.Screen name="Information" component={DangTuoi} />
+          <Tab.Screen name="Information" component={InformationScreen} />
         </Tab.Navigator>
       </NavigationContainer>
     </>

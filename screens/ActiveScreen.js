@@ -8,6 +8,7 @@ import {
   TouchableHighlight,
 } from "react-native";
 import Notification from "../components/Notification";
+import Garden from "../components/Garden/Garden";
 import { useState } from "react";
 
 export default function NotificationScreen() {
@@ -75,7 +76,7 @@ export default function NotificationScreen() {
             style={[styles.button, { borderColor: `${tab == 2 ? 'green' : 'black'}`, borderWidth: tab == 2 ? 3 : 1}]}
             underlayColor="gray"
           >
-            <Text style={{ fontSize: 13 }}>Tưới xong</Text>
+            <Text style={{ fontSize: 13 }}>Bình thường</Text>
           </TouchableHighlight>
         </View>
         <View style={styles.buttonContainer}>
@@ -92,13 +93,13 @@ export default function NotificationScreen() {
       </View>
 
       <ScrollView style={{ marginTop: 20 }}>
-        <Notification />
-        <Notification />
-        <Notification />
-        <Notification />
-        <Notification />
-        <Notification />
-        <Notification />
+        <Garden />
+        <Garden />
+        <Garden />
+        <Garden />
+        <Garden />
+        <Garden />
+        <Garden />
       </ScrollView>
     </View>
   );
