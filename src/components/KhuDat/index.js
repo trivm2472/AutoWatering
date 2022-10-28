@@ -15,7 +15,7 @@ const KhuDat=(props) =>{
           <View style={styles.item}>
             <View style={styles.square}>
               <Image 
-                source={require('../../assets/iswatering_icon.png')} 
+                source={require('../../../assets/iswatering_icon.png')} 
                 style={{ width: 50, height: 50 }}
               />
             </View>

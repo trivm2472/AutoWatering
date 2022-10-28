@@ -35,7 +35,7 @@ export default function NotificationScreen() {
         <TextInput placeholder="Nhấp vào đây để tìm kiếm" style={styles.input}></TextInput>
         <View style={{ flex: 2, alignItems: "center" }}>
           <Image
-            source={require("../assets/filter_icon2.png")}
+            source={require("../../assets/filter_icon2.png")}
             style={{ width: 20 }}
           />
         </View>

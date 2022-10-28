@@ -6,11 +6,12 @@ import {
   TextInput,
   ScrollView,
   TouchableHighlight,
+  TouchableOpacity,
 } from "react-native";
 import Notification from "../components/Notification";
 import { useState } from "react";
 
-export default function NotificationScreen() {
+export default function ActiveScreen( {navigation} ) {
   const [tab, setTab] = useState(0);
   return (
     <View style={styles.container}>
@@ -22,7 +23,7 @@ export default function NotificationScreen() {
           textAlign: "center",
         }}
       >
-        Nhà Vườn
+        Vườn
       </Text>
       <View
         style={{
@@ -34,7 +35,9 @@ export default function NotificationScreen() {
       >
         <TextInput placeholder="Nhấp vào đây để tìm kiếm" style={styles.input}></TextInput>
         <View style={{ flex: 2, alignItems: "center", paddingLeft: 5, paddingRight: 5}}>
-          <Text style={{fontSize: 16, textAlign: 'center', fontWeight: '700', color: '#018F18'}}>Tạo thêm</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('newGarden')}>
+            <Text style={{fontSize: 16, textAlign: 'center', fontWeight: '700', color: '#018F18'}}>Tạo thêm</Text>
+          </TouchableOpacity>
         </View>
       </View>
       <View

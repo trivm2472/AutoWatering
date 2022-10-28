@@ -14,7 +14,7 @@ const DangTuoi=({navigation}) =>{
         >
           <View style={styles.backIconWrapper}>
             <Image 
-                  source={require('../../assets/back_icon.png')} 
+                  source={require('../../../assets/back_icon.png')} 
                   style={{ width: 20, height: 20}}
                 />
           </View>
