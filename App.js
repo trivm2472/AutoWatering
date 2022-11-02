@@ -1,11 +1,5 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import Infomation from "./components/infomation";
-import Control from "./components/control";
+import Main from "./components/layout";
 
 export default function App() {
-  return (
-    // <Infomation />
-    <Control />
-  );
+  return <Main />;
 }
