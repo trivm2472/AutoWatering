@@ -1,11 +1,19 @@
-import { Text, View, Image, TextInput, Button, Alert } from "react-native";
-import React from "react";
+import { Text, View, Image, TextInput, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
 import styles from "./styles";
-
 export default function Control() {
-  const [text, onChangeText] = React.useState("Useless Text");
-  const [stateButton, setStateButton] = React.useState(0);
-  const [color, setColor] = React.useState(["#81B8D4", "#F6F6F6"]);
+  const [text, onChangeText] = useState("");
+  const [stateButton, setStateButton] = useState(0);
+  const [color, setColor] = useState(["#81B8D4", "#F6F6F6"]);
+  const toggleButton = () => {
+    if (stateButton) {
+      setStateButton(0);
+      setColor(["#F6F6F6", "#81B8D4"]);
+    } else {
+      setStateButton(1);
+      setColor(["#81B8D4", "#F6F6F6"]);
+    }
+  };
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -42,46 +50,49 @@ export default function Control() {
         </View>
         <View style={styles.setup}>
           <View style={styles.time}>
-            <Text>Đặt thời gian tưới:</Text>
+            <Text style={{ marginRight: 17 }}>Đặt thời gian tưới:</Text>
             <TextInput
-              style={styles.input}
+              style={{
+                width: 70,
+                height: 35,
+                backgroundColor: "#EFEFEF",
+                marginRight: 5,
+                textAlign: "center",
+              }}
               onChangeText={onChangeText}
               value={text}
             />
             <Text>Phút</Text>
           </View>
           <View style={styles.control}>
-            <Text>Đang tưới: {text}</Text>
+            <Text>Đang tưới: Không</Text>
             <View style={styles.list_button}>
-              <Button
-                title="Bật"
-                width="20"
-                style={styles.button}
-                color={color[0]}
-                onPress={() => {
-                  if (stateButton) {
-                    setStateButton(0);
-                    setColor(["#F6F6F6", "#81B8D4"]);
-                  } else {
-                    setStateButton(1);
-                    setColor(["#81B8D4", "#F6F6F6"]);
-                  }
+              <TouchableOpacity
+                style={{
+                  width: 120,
+                  height: 50,
+                  backgroundColor: color[0],
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: 10,
                 }}
-              />
-              <Button
-                title="Tắt"
-                color={color[1]}
-                style={styles.button}
-                onPress={() => {
-                  if (stateButton) {
-                    setStateButton(0);
-                    setColor(["#F6F6F6", "#81B8D4"]);
-                  } else {
-                    setStateButton(1);
-                    setColor(["#81B8D4", "#F6F6F6"]);
-                  }
+                onPress={toggleButton}
+              >
+                <Text>Tắt</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  width: 120,
+                  height: 50,
+                  backgroundColor: color[1],
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: 10,
                 }}
-              />
+                onPress={toggleButton}
+              >
+                <Text>Bật</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
