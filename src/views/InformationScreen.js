@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Image } from 'react-native';
 export default function InformationScreen () {
   return (
     <View style={styles.container}>
-      <Image style={styles.logoStyle} source={require('../assets/logo.png')}/>
+      <Image style={styles.logoStyle} source={require('../../assets/logo.png')}/>
       <Text style={styles.textStyle}>Information Screen</Text>
     </View>
   );

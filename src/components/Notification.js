@@ -6,7 +6,7 @@ export default function Notification(props) {
       <View style={styles.imageStyle}>
         <Image
           style={styles.imageStyle}
-          source={require("../assets/Notification/watering.png")}
+          source={require("../../assets/Notification/watering.png")}
         />
       </View>
       <View style={styles.notificationContent}>

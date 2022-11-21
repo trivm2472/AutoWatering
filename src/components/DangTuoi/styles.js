@@ -14,9 +14,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   headerName:{
-    // fontSize: 20,
-    // color: '#21a3d0',
-    // fontWeight: 'bold',
+    fontSize: 20,
+    color: 'white',
+    fontWeight: 'bold',
     width: '70%',
     fontSize: 25
   },

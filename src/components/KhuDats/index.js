@@ -2,7 +2,7 @@ import { Text, View, StyleSheet, Image, TextInput, TouchableOpacity, ScrollView}
 import styles from './styles';
 import KhuDat from '../KhuDat/index';
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../firebase";
+import { db } from "../../../firebase";
 import {useState, useEffect} from 'react'
 
 const KhuDats=() =>{
@@ -34,14 +34,14 @@ const KhuDats=() =>{
         
         <View style={styles.search}>
           <TextInput
-            placeholder="Tim kiem" 
+            placeholder="Tìm kiếm"   
             style={styles.input}
           >
           </TextInput>
           <TouchableOpacity>
             <View style={styles.iconWrapper}>
               <Image 
-                source={require('../../assets/filter_icon.png')} 
+                source={require('../../../assets/filter_icon.png')} 
                 style={{ width: 30, height: 30}}
               />
             </View>
