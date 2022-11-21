@@ -8,6 +8,7 @@ import HomeStackNavigation from "../navigations/HomeStackNavigation";
 import NotificationScreen from "../views/NotificationScreen";
 import ActiveStackNavigation from "../navigations/ActiveStackNavigation";
 import InfomationScreen from "../views/InformationScreen";
+import Main from "../components/DieuKhienKhuDat/layout";
 
 const Tab = createBottomTabNavigator();
 
@@ -36,7 +37,7 @@ export default function MainTabNavigation() {
           <Tab.Screen name="Home" component={HomeStackNavigation} />
           <Tab.Screen name="Notification" component={NotificationScreen} />
           <Tab.Screen name="Active" component={ActiveStackNavigation} />
-          <Tab.Screen name="Information" component={InfomationScreen} />
+          <Tab.Screen name="Information" component={Main} />
         </Tab.Navigator>
 
   );

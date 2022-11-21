@@ -7,15 +7,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 const homeStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-function HomeStackScreen() {
-  return (
-  <homeStack.Navigator initialRouteName="HomePage" screenOptions={{headerShown: false}}>
-    <homeStack.Screen name="HomePage" component={HomePage} />
-    <homeStack.Screen name="DangTuoi" component={DangTuoi} />  
-  </homeStack.Navigator>
-  );
-}
-
 export default function App() {
   return (
       <NavigationContainer>

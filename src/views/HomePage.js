@@ -37,15 +37,15 @@ function Menu({ type, navigation }) {
 }
 
 export default function HomePage( {navigation}) {
-  useEffect(() => {
-    const getData = async () => {
-      const querySnapshot = await getDocs(collection(db, "NhaVuon"));
-      querySnapshot.forEach((doc) => {
-        console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
-      });
-    };
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     const querySnapshot = await getDocs(collection(db, "NhaVuon"));
+  //     querySnapshot.forEach((doc) => {
+  //       console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
+  //     });
+  //   };
+  //   getData();
+  // }, []);
 
   return (
     <>
