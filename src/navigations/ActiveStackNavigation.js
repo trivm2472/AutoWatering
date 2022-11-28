@@ -10,7 +10,6 @@ export default function ActiveStackNavigation() {
         <Stack.Navigator screenOptions={{headerShown: false}}>
             <Stack.Screen name="active" component={ActiveScreen}/>
             <Stack.Screen name="newGarden" component={NewGarden}/>
-
         </Stack.Navigator>
     );
 }

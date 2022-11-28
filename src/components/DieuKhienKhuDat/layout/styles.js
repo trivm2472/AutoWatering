@@ -2,7 +2,8 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#00A455",
+    // backgroundColor: "#00A455",
+    paddingTop: '20%',
     height: "100%",
     flexDirection: "column",
     alignItems: "center",
@@ -28,13 +29,13 @@ const styles = StyleSheet.create({
   },
 
   content: {
-    backgroundColor: "white",
-    width: "100%",
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
+    // backgroundColor: "white",
+    // flex: 1,
+    // flexDirection: "column",
+    // alignItems: "center",
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
+    
   },
 });
 
