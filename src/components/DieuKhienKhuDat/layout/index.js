@@ -12,7 +12,7 @@ import { Chart } from "../../chartScreen/Chart";
 
 // const Tab =  createMaterialTopTabNavigator();
 export default function Main() {
-  const [tab, setTab] = useState(1);
+  const [tab, setTab] = useState(0);
 
   const changeTab = (num) => {
     setTab(num);
