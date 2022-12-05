@@ -10,9 +10,11 @@ import {
 } from "react-native";
 import { useState, useEffect } from "react";
 import styles from "./styles";
+import { collection, getDocs, doc, setDoc, getDoc } from "firebase/firestore";
+import { db } from "../../../../firebase";
 import DropDownPicker from "react-native-dropdown-picker";
 
-const plantData = [
+export const plantData = [
   {
     type: "Cây táo",
     stage1: 30,
@@ -169,7 +171,13 @@ function PlantConfig({ setModalVisible, plantData, setPlant }) {
         </View>
         <Pressable
           style={[styles.button, styles.buttonClose, { marginTop: 20 }]}
-          onPress={() => {setModalVisible(false); setPlant(value)}}
+          onPress={async () => {
+            setModalVisible(false);
+            setPlant(value);
+            await setDoc(doc(db, "Data", "plant"), {
+              name: value,
+            });
+          }}
         >
           <Text style={styles.textStyle}>Xác nhận</Text>
         </Pressable>
@@ -181,6 +189,13 @@ function PlantConfig({ setModalVisible, plantData, setPlant }) {
 export default function InfomationScreen() {
   const [modalVisible, setModalVisible] = useState(false);
   const [plant, setPlant] = useState("");
+  useEffect(() => {
+    const getData = async () => {
+      const tempData = await getDoc(doc(db, "Data", "plant"));
+      setPlant(tempData.data().name);
+    };
+    getData();
+  }, []);
   return (
     <View style={styles.contain}>
       <Modal
@@ -192,7 +207,11 @@ export default function InfomationScreen() {
           setModalVisible(!modalVisible);
         }}
       >
-        <PlantConfig setModalVisible={setModalVisible} plantData={plantData} setPlant={setPlant}/>
+        <PlantConfig
+          setModalVisible={setModalVisible}
+          plantData={plantData}
+          setPlant={setPlant}
+        />
       </Modal>
       <Text style={styles.info}>Thông tin chi tiết</Text>
       <View style={styles.infomation}>
