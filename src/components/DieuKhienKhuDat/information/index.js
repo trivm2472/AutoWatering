@@ -13,6 +13,7 @@ import styles from "./styles";
 import { collection, getDocs, doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "../../../../firebase";
 import DropDownPicker from "react-native-dropdown-picker";
+import { Entypo, Feather, FontAwesome5 } from '@expo/vector-icons';
 
 export const plantData = [
   {
@@ -186,7 +187,7 @@ function PlantConfig({ setModalVisible, plantData, setPlant }) {
   );
 }
 
-export default function InfomationScreen() {
+export default function InfomationScreen({changePage}) {
   const [modalVisible, setModalVisible] = useState(false);
   const [plant, setPlant] = useState("");
   useEffect(() => {
@@ -265,17 +266,25 @@ export default function InfomationScreen() {
           </View>
         </View>
       </View>
-      <View style={styles.history}>
-        <Image
-          style={styles.tinyLogo}
-          source={require("../../../../assets/logo.png")}
-        />
+      
+      <TouchableOpacity
+        onPress={() => {
+          changePage(1);
+        }}
+        style={[
+          styles.link,
+          { backgroundColor: 'none' },
+        ]}
+      >
+        <View style={styles.history}>
+        <Entypo style={styles.icon} name='water' size={27} color='#699BF7' />
         <Text style={{}}>Xem lịch sử tưới</Text>
         <Image
           style={[styles.tinyLogo, { marginRight: 30 }]}
           source={require("../../../../assets/button.png")}
         />
       </View>
+      </TouchableOpacity>
     </View>
   );
 }

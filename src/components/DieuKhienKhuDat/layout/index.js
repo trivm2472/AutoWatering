@@ -9,13 +9,19 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import InformationScreen from "../../../views/InformationScreen";
 import { Chart } from "../../chartScreen/Chart";
+import {Screen} from"../../irrigationHistoryScreen/IrrigationHistoryScreen";
 
 // const Tab =  createMaterialTopTabNavigator();
 export default function Main() {
   const [tab, setTab] = useState(0);
+  const [page, setPage] = useState(0);
 
   const changeTab = (num) => {
     setTab(num);
+    return;
+  }
+  const changePage = (num) =>{
+    setPage(num);
     return;
   }
   return (
@@ -40,14 +46,12 @@ export default function Main() {
         <Text style={styles.title}>Khu đất số 1</Text>
       </View> */}
       <View style={styles.content}>
-        <TabMenu changeTab={changeTab}/>
-        {/* <Tab.Navigator screenOptions={{swipeEnabled: false, tabBarStyle: styles.tabStyle, tabBarIndicatorStyle: styles.tabIndicator, tabBarPressColor: 'transparent', tabBarLabelStyle: styles.tabLabel}}>
-          <Tab.Screen name='Temperature' options={{title:'Nhiệt độ'}} component={InformationScreen}/>
-          <Tab.Screen name='Humidity' options={{title:'Độ ẩm'}} component={Chart}/>
-        </Tab.Navigator> */}
-        {/* <InfomationScreen /> */}
-        {tab == 0 ? <InfomationScreen /> : tab == 1 ? <Chart/> : <ControlScreen/>}
-        {/* <ControlScreen /> */}
+        {page == 0?
+          <View>
+            <TabMenu changeTab={changeTab}/>
+            {tab == 0 ? <InfomationScreen changePage={changePage} /> : tab == 1 ? <Chart/> : <ControlScreen/>}
+          </View>: <Screen changePage={changePage}/>
+        }
       </View>
     </View>
   );
