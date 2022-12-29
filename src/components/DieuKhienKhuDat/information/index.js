@@ -13,6 +13,7 @@ import styles from "./styles";
 import { collection, getDocs, doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "../../../../firebase";
 import DropDownPicker from "react-native-dropdown-picker";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 export const plantData = [
   {
@@ -187,6 +188,8 @@ function PlantConfig({ setModalVisible, plantData, setPlant }) {
 }
 
 export default function InfomationScreen() {
+  const [date, setDate] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const [plant, setPlant] = useState("");
   useEffect(() => {
@@ -195,6 +198,7 @@ export default function InfomationScreen() {
       setPlant(tempData.data().name);
     };
     getData();
+    console.log(date);
   }, []);
   return (
     <View style={styles.contain}>
@@ -221,6 +225,18 @@ export default function InfomationScreen() {
             <Text style={styles.data}>A</Text>
           </View>
           <View style={styles.child}>
+            <Button title="Open" onPress={() => setShowDatePicker(true)} />
+              {showDatePicker ? <DateTimePicker
+                mode="date"
+                value={new Date()}
+                onChange={(value) => {
+                  setDate(new Date(value.nativeEvent.timestamp));
+                  setShowDatePicker(!showDatePicker);
+                }}
+                style={{display: 'none'}}
+              /> : null}
+          </View>
+          <View style={styles.child}>
             <Text style={styles.name}>Tên</Text>
             <Text style={styles.data}>S1</Text>
           </View>
@@ -230,6 +246,20 @@ export default function InfomationScreen() {
             <TouchableOpacity
               onPress={() => {
                 setModalVisible(true);
+              }}
+            >
+              <Image
+                source={require("../../../../assets/edit.png")}
+                style={[styles.tinyLogo, { marginLeft: 0 }]}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.child}>
+            <Text style={styles.name}>Ngày bắt đầu tưới: </Text>
+            <Text style={[styles.data, { paddingRight: 10 }]}>{date.getDate()}/{date.getMonth()}/{date.getFullYear()}</Text>
+            <TouchableOpacity
+              onPress={() => {
+                setShowDatePicker(true);
               }}
             >
               <Image
