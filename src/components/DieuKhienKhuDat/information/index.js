@@ -14,7 +14,7 @@ import { collection, getDocs, doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "../../../../firebase";
 import DropDownPicker from "react-native-dropdown-picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { Entypo, Feather, FontAwesome5 } from '@expo/vector-icons';
+import { Entypo, Feather, FontAwesome5 } from "@expo/vector-icons";
 
 export const plantData = [
   {
@@ -188,15 +188,43 @@ function PlantConfig({ setModalVisible, plantData, setPlant }) {
   );
 }
 
-export default function InfomationScreen({changePage}) {
+export default function InfomationScreen({ changePage }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [plant, setPlant] = useState("");
+  const [temp, setTemp] = useState(0);
+  const [humid, setHumid] = useState(0);
   useEffect(() => {
     const getData = async () => {
       const tempData = await getDoc(doc(db, "Data", "plant"));
       setPlant(tempData.data().name);
     };
     getData();
+    const getTempHumidData = () => {
+      try{
+        fetch(
+          "https://io.adafruit.com/api/v2/HungLe0101/feeds/irrigationsystem-temp/data"
+        )
+          .then((response) => response.json())
+          .then((json) => {
+            setTemp(Math.round(json[0].value*100)/100)
+          });
+        fetch(
+          "https://io.adafruit.com/api/v2/HungLe0101/feeds/irrigationsystem-humi/data"
+        )
+          .then((response) => response.json())
+          .then((json) => {
+            setHumid(Math.round(json[0].value*100)/100)
+            
+          });
+      } catch {
+
+      }
+    };
+    
+    getTempHumidData();
+    const tempDataInterval = setInterval(() => getTempHumidData(), 2 * 1000);
+    return () => clearInterval(tempDataInterval);
+    
   }, []);
   return (
     <View style={styles.contain}>
@@ -281,11 +309,11 @@ export default function InfomationScreen({changePage}) {
           </View>
           <View style={styles.child}>
             <Text style={styles.name}>Nhiệt độ</Text>
-            <Text style={styles.data}>28°C</Text>
+            <Text style={styles.data}>{temp}°C</Text>
           </View>
           <View style={styles.child}>
             <Text style={styles.name}>Độ ẩm</Text>
-            <Text style={styles.data}>50%</Text>
+            <Text style={styles.data}>{humid}%</Text>
           </View>
           <View style={styles.child}>
             <Text style={styles.name}>Đang tưới</Text>
@@ -293,24 +321,21 @@ export default function InfomationScreen({changePage}) {
           </View>
         </View>
       </View>
-      
+
       <TouchableOpacity
         onPress={() => {
           changePage(1);
         }}
-        style={[
-          styles.link,
-          { backgroundColor: 'none' },
-        ]}
+        style={[styles.link, { backgroundColor: "none" }]}
       >
         <View style={styles.history}>
-        <Entypo style={styles.icon} name='water' size={27} color='#699BF7' />
-        <Text style={{}}>Xem lịch sử tưới</Text>
-        <Image
-          style={[styles.tinyLogo, { marginRight: 30 }]}
-          source={require("../../../../assets/button.png")}
-        />
-      </View>
+          <Entypo style={styles.icon} name="water" size={27} color="#699BF7" />
+          <Text style={{}}>Xem lịch sử tưới</Text>
+          <Image
+            style={[styles.tinyLogo, { marginRight: 30 }]}
+            source={require("../../../../assets/button.png")}
+          />
+        </View>
       </TouchableOpacity>
     </View>
   );

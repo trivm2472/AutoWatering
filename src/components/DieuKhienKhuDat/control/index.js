@@ -6,9 +6,9 @@ import { db } from "../../../../firebase";
 import Slider from "@react-native-community/slider";
 
 const defaultMinHumid = 20;
-const defaultMaxHumid = 40;
+const defaultMaxHumid = 92;
 const defaultMinTemp = 20;
-const defaultMaxTemp = 39;
+const defaultMaxTemp = 49;
 
 export default function ControlScreen() {
   const [text, onChangeText] = useState("");
@@ -30,7 +30,6 @@ export default function ControlScreen() {
       maxTemp: defaultMaxTemp,
       minTemp: defaultMinTemp,
     });
-    
   };
   const updateData = async (string, value) => {
     if (string == "minHumid") {
@@ -106,7 +105,10 @@ export default function ControlScreen() {
             borderRadius: 30,
           },
         ]}
-      onPress={() => {updateDefautData()}}>
+        onPress={() => {
+          updateDefautData();
+        }}
+      >
         <Text>Reset to default</Text>
       </TouchableOpacity>
       <Text
@@ -162,6 +164,45 @@ export default function ControlScreen() {
           onSlidingComplete={(value) => {
             setMinHumid(value | 0);
             updateData("minHumid", value | 0);
+            fetch(
+              "https://io.adafruit.com/api/v2/HungLe0101/feeds/irrigationsystem-humi/data"
+            )
+              .then((response) => response.json())
+              .then((json) => {
+                if (json[0].value < value) {
+                  setStateButton(1);
+                  fetch(
+                    "https://io.adafruit.com/api/v2/HungLe0101/feeds/irrigationsystem-pump/data",
+                    {
+                      method: "POST",
+                      headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                        "X-AIO-Key": "aio_FULZ74KxSOt8nMyOf1O9ndTu71gS",
+                      },
+                      body: JSON.stringify({
+                        value: 1,
+                      }),
+                    }
+                  );
+                } else {
+                  setStateButton(0);
+                  fetch(
+                    "https://io.adafruit.com/api/v2/HungLe0101/feeds/irrigationsystem-pump/data",
+                    {
+                      method: "POST",
+                      headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                        "X-AIO-Key": "aio_FULZ74KxSOt8nMyOf1O9ndTu71gS",
+                      },
+                      body: JSON.stringify({
+                        value: 0,
+                      }),
+                    }
+                  );
+                }
+              });
           }}
         />
       </View>
@@ -195,6 +236,45 @@ export default function ControlScreen() {
           onSlidingComplete={(value) => {
             setMaxTemp(value | 0);
             updateData("maxTemp", value | 0);
+            fetch(
+              "https://io.adafruit.com/api/v2/HungLe0101/feeds/irrigationsystem-temp/data"
+            )
+              .then((response) => response.json())
+              .then((json) => {
+                if (json[0].value > value) {
+                  setStateButton(1);
+                  fetch(
+                    "https://io.adafruit.com/api/v2/HungLe0101/feeds/irrigationsystem-pump/data",
+                    {
+                      method: "POST",
+                      headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                        "X-AIO-Key": "aio_FULZ74KxSOt8nMyOf1O9ndTu71gS",
+                      },
+                      body: JSON.stringify({
+                        value: 1,
+                      }),
+                    }
+                  );
+                } else {
+                  setStateButton(0);
+                  fetch(
+                    "https://io.adafruit.com/api/v2/HungLe0101/feeds/irrigationsystem-pump/data",
+                    {
+                      method: "POST",
+                      headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                        "X-AIO-Key": "aio_FULZ74KxSOt8nMyOf1O9ndTu71gS",
+                      },
+                      body: JSON.stringify({
+                        value: 0,
+                      }),
+                    }
+                  );
+                }
+              });
           }}
         />
       </View>
@@ -235,6 +315,20 @@ export default function ControlScreen() {
             }}
             onPress={() => {
               setStateButton(0);
+              fetch(
+                "https://io.adafruit.com/api/v2/HungLe0101/feeds/irrigationsystem-pump/data",
+                {
+                  method: "POST",
+                  headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    "X-AIO-Key": "aio_FULZ74KxSOt8nMyOf1O9ndTu71gS",
+                  },
+                  body: JSON.stringify({
+                    value: 0,
+                  }),
+                }
+              );
             }}
           >
             <Text>Tắt</Text>
@@ -250,6 +344,20 @@ export default function ControlScreen() {
             }}
             onPress={() => {
               setStateButton(1);
+              fetch(
+                "https://io.adafruit.com/api/v2/HungLe0101/feeds/irrigationsystem-pump/data",
+                {
+                  method: "POST",
+                  headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    "X-AIO-Key": "aio_FULZ74KxSOt8nMyOf1O9ndTu71gS",
+                  },
+                  body: JSON.stringify({
+                    value: 1,
+                  }),
+                }
+              );
             }}
           >
             <Text>Bật</Text>
