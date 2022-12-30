@@ -31,9 +31,6 @@ const TabTheme = {
 
 const Tabb = () => {
   return (
-      // <Tab.Navigator screenOptions={{swipeEnabled: false, tabBarStyle: styles.tabBar, tabBarPressColor: 'transparent', tabBarIndicatorStyle: styles.tabIndicator, tabBarLabelStyle: styles.tabLabel}}>
-      //   <Tab.Screen name='Biểu đồ' component={Chart}/>
-      // </Tab.Navigator>
       <Chart/>
   );
 }

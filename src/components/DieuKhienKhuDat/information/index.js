@@ -14,6 +14,7 @@ import { collection, getDocs, doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "../../../../firebase";
 import DropDownPicker from "react-native-dropdown-picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { Entypo, Feather, FontAwesome5 } from '@expo/vector-icons';
 
 export const plantData = [
   {
@@ -187,9 +188,7 @@ function PlantConfig({ setModalVisible, plantData, setPlant }) {
   );
 }
 
-export default function InfomationScreen() {
-  const [date, setDate] = useState(new Date());
-  const [showDatePicker, setShowDatePicker] = useState(true);
+export default function InfomationScreen({changePage}) {
   const [modalVisible, setModalVisible] = useState(false);
   const [plant, setPlant] = useState("");
   useEffect(() => {
@@ -198,7 +197,6 @@ export default function InfomationScreen() {
       setPlant(tempData.data().name);
     };
     getData();
-    console.log(date);
   }, []);
   return (
     <View style={styles.contain}>
@@ -224,7 +222,7 @@ export default function InfomationScreen() {
             <Text style={styles.name}>Vườn</Text>
             <Text style={styles.data}>A</Text>
           </View>
-          <View style={styles.child}>
+          {/* <View style={styles.child}>
             <Button title="Open" onPress={() => setShowDatePicker(true)} />
               {showDatePicker ? <DateTimePicker
                 mode="date"
@@ -235,7 +233,7 @@ export default function InfomationScreen() {
                 }}
                 style={{display: 'none'}}
               /> : null}
-          </View>
+          </View> */}
           <View style={styles.child}>
             <Text style={styles.name}>Tên</Text>
             <Text style={styles.data}>S1</Text>
@@ -254,7 +252,7 @@ export default function InfomationScreen() {
               />
             </TouchableOpacity>
           </View>
-          <View style={styles.child}>
+          {/* <View style={styles.child}>
             <Text style={styles.name}>Ngày bắt đầu tưới: </Text>
             <Text style={[styles.data, { paddingRight: 10 }]}>{date.getDate()}/{date.getMonth()}/{date.getFullYear()}</Text>
             <TouchableOpacity
@@ -267,7 +265,7 @@ export default function InfomationScreen() {
                 style={[styles.tinyLogo, { marginLeft: 0 }]}
               />
             </TouchableOpacity>
-          </View>
+          </View> */}
           <View style={styles.child_four}>
             <View style={styles.content4}>
               <Text style={styles.name}>Thiết bị cảm biến</Text>
@@ -295,17 +293,25 @@ export default function InfomationScreen() {
           </View>
         </View>
       </View>
-      <View style={styles.history}>
-        <Image
-          style={styles.tinyLogo}
-          source={require("../../../../assets/logo.png")}
-        />
+      
+      <TouchableOpacity
+        onPress={() => {
+          changePage(1);
+        }}
+        style={[
+          styles.link,
+          { backgroundColor: 'none' },
+        ]}
+      >
+        <View style={styles.history}>
+        <Entypo style={styles.icon} name='water' size={27} color='#699BF7' />
         <Text style={{}}>Xem lịch sử tưới</Text>
         <Image
           style={[styles.tinyLogo, { marginRight: 30 }]}
           source={require("../../../../assets/button.png")}
         />
       </View>
+      </TouchableOpacity>
     </View>
   );
 }
